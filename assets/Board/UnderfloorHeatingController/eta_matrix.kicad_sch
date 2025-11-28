@@ -1,0 +1,1016 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "4e67337c-0fc8-4264-8984-c7c99aae5454")
+	(paper "A4")
+	(lib_symbols)
+	(wire
+		(pts
+			(xy 104.14 60.96) (xy 109.22 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "13f84611-c992-44f0-aebc-b10440a47f20")
+	)
+	(wire
+		(pts
+			(xy 30.48 60.96) (xy 35.56 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1df97be9-b42a-4c5f-8d6e-3757a263ac4c")
+	)
+	(wire
+		(pts
+			(xy 67.31 60.96) (xy 72.39 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b33427f-c999-4bec-83b0-877d828fa894")
+	)
+	(wire
+		(pts
+			(xy 104.14 44.45) (xy 109.22 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5afdd066-d350-4230-93da-9e09a0089799")
+	)
+	(wire
+		(pts
+			(xy 67.31 44.45) (xy 72.39 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "606d5cac-bc1c-4429-9890-9b66b46cda5b")
+	)
+	(wire
+		(pts
+			(xy 30.48 27.94) (xy 35.56 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63c68029-ef48-49b0-9403-2c86cba0713d")
+	)
+	(wire
+		(pts
+			(xy 104.14 27.94) (xy 109.22 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f9e2293-c7e7-499a-a985-2c7a57361334")
+	)
+	(wire
+		(pts
+			(xy 30.48 44.45) (xy 35.56 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a73aeb7-e783-4d62-91b5-1c1bc94e53cb")
+	)
+	(wire
+		(pts
+			(xy 104.14 77.47) (xy 109.22 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a37e61b1-3e5c-4e29-85a1-e30af34a559c")
+	)
+	(wire
+		(pts
+			(xy 30.48 77.47) (xy 35.56 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a7aa3616-d049-4686-9102-bdb49d324f09")
+	)
+	(wire
+		(pts
+			(xy 67.31 27.94) (xy 72.39 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c84da139-2065-43cd-a9c4-130230e99dd0")
+	)
+	(wire
+		(pts
+			(xy 67.31 77.47) (xy 72.39 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c961b072-9c8a-4d94-a857-501798c08c97")
+	)
+	(global_label "ETA_L10"
+		(shape input)
+		(at 104.14 44.45 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "22feaa4b-c516-420f-8ef2-fe8c6acb86dd")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 93.5349 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L7"
+		(shape input)
+		(at 67.31 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3a82b48f-f92c-4b8e-abf1-c3195e908b3e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 57.9144 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L5"
+		(shape input)
+		(at 67.31 27.94 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "472b5cde-c60b-40a0-b416-2885c26fa486")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 57.9144 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L8"
+		(shape input)
+		(at 67.31 77.47 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4894a671-c4e6-40f6-ba4a-92638d243772")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 57.9144 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L11"
+		(shape input)
+		(at 104.14 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5c988e5c-dcf8-4147-b4fd-da1ed3920525")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 93.5349 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L2"
+		(shape input)
+		(at 30.48 44.45 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6fc87b3b-e9eb-4842-bb87-478daba3dbd8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 21.0844 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L6"
+		(shape input)
+		(at 67.31 44.45 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "afde3167-1780-4062-a59b-09dcb0a8da03")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 57.9144 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L3"
+		(shape input)
+		(at 30.48 60.96 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "bf045412-054a-412c-bb16-670fd7a4f3a7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 21.0844 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L4"
+		(shape input)
+		(at 30.48 77.47 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d07865ca-b591-49d4-8172-bd9a26dbdc7c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 21.0844 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L9"
+		(shape input)
+		(at 104.14 27.94 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d2895fa1-f254-4224-98b7-eb9d1409bd8b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 94.7444 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L12"
+		(shape input)
+		(at 104.14 77.47 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "de02d1ef-b17e-4ba7-b756-9f2a5c481ca0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 93.5349 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ETA_L1"
+		(shape input)
+		(at 30.48 27.94 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "ef0827fc-f0f9-4537-9106-ec2672cee6df")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 21.0844 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(sheet
+		(at 72.39 55.88)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "01490a5a-e000-42f5-9f08-4333413eb6af")
+		(property "Sheetname" "ETA7"
+			(at 72.39 55.1684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 72.39 66.6246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 72.39 60.96 180)
+			(uuid "92fb3e54-1053-4488-bc05-09514f057be5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 109.22 22.86)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "1a4758fb-5ec1-4744-aac6-7418e0b34e70")
+		(property "Sheetname" "ETA9"
+			(at 109.22 22.1484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 109.22 33.6046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 109.22 27.94 180)
+			(uuid "aff8e566-ad88-4301-b731-0c169cd05007")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "11")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 72.39 22.86)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "6941f7d2-cc20-4dfc-a9f3-2286c6a5987d")
+		(property "Sheetname" "ETA5"
+			(at 72.39 22.1484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 72.39 33.6046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 72.39 27.94 180)
+			(uuid "6c4d0ead-08be-4df7-9536-b2f1ee47aa53")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 109.22 39.37)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "748897e5-ea26-4674-ad5c-64d75ac2eeb3")
+		(property "Sheetname" "ETA10"
+			(at 109.22 38.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 109.22 50.1146 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 109.22 44.45 180)
+			(uuid "f7ddd42c-4b1c-4f8a-851f-3952fab13557")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "12")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 109.22 72.39)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7af898fb-ffbe-43fe-947e-36caba8541b3")
+		(property "Sheetname" "ETA12"
+			(at 109.22 71.6784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 109.22 83.1346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 109.22 77.47 180)
+			(uuid "44cd2ed6-b445-4ede-9073-caf2c8d5c9dc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "14")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 35.56 22.86)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7d8fe4b4-3844-45e3-b522-03eb3428def1")
+		(property "Sheetname" "ETA1"
+			(at 35.56 22.1484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 35.56 33.6046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 35.56 27.94 180)
+			(uuid "676796c9-a86b-4775-9f7d-7cdeac81c59a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 35.56 72.39)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "8e03ecdc-c678-4b96-86db-2de1ad8ca2ee")
+		(property "Sheetname" "ETA4"
+			(at 35.56 71.6784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 35.56 83.1346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 35.56 77.47 180)
+			(uuid "90b440d1-6271-4bd8-8518-f21673971b58")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 72.39 39.37)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "a562d290-553b-4e0a-a3d0-a5f7c675049c")
+		(property "Sheetname" "ETA6"
+			(at 72.39 38.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 72.39 50.1146 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 72.39 44.45 180)
+			(uuid "3fc40c9a-b5d8-49a7-ba66-bd4941b05045")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 72.39 72.39)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "c7939916-39e3-4aa7-aedf-3492ad3da96a")
+		(property "Sheetname" "ETA8"
+			(at 72.39 71.6784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 72.39 83.1346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 72.39 77.47 180)
+			(uuid "c6b614a7-b11b-44bc-8bfe-7db98ba93ab4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 35.56 39.37)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "cccb3884-7f35-48e0-87e8-77ded1bd8628")
+		(property "Sheetname" "ETA2"
+			(at 35.56 38.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 35.56 50.1146 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 35.56 44.45 180)
+			(uuid "7291e407-19c5-4e03-b17e-ee4f812dafb1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 109.22 55.88)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "eba63e91-de4d-43f6-b194-d00e24966a23")
+		(property "Sheetname" "ETA11"
+			(at 109.22 55.1684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 109.22 66.6246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 109.22 60.96 180)
+			(uuid "797b564f-52c4-405b-a448-281992f1dbaf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "13")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 35.56 55.88)
+		(size 17.78 10.16)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "febc02e3-53ac-4cef-b597-2d7f7da8ac30")
+		(property "Sheetname" "ETA3"
+			(at 35.56 55.1684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "eta.kicad_sch"
+			(at 35.56 66.6246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "ETA" input
+			(at 35.56 60.96 180)
+			(uuid "d28b2ab9-85ac-4472-bec7-26fd012f8010")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "UnderfloorHeatingController"
+				(path "/7f42c8c9-93b7-46f2-bb55-850effcdf72e/51481f93-bc2d-494f-8142-442b6eb66b55"
+					(page "4")
+				)
+			)
+		)
+	)
+)
