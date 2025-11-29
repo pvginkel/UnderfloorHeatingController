@@ -1,0 +1,9 @@
+(version 1)
+(rule "ACS725 clearance"
+    (constraint clearance (min 0.20mm))
+    (condition "A.enclosedByArea('ACS725 clearance') || B.enclosedByArea('ACS725 clearance')")
+)
+(rule "PhotoMOS clearance"
+    (constraint clearance (min 0.40mm))
+    (condition "A.enclosedByArea('PhotoMOS clearance') || B.enclosedByArea('PhotoMOS clearance')")
+)
