@@ -518,7 +518,7 @@
 		(descr "Relay SPST-NO Omron Serie G5Q, http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5q.pdf")
 		(tags "Relay SPST-NO Omron Serie G5Q")
 		(property "Reference" "K1"
-			(at 9.5 -10.5 90)
+			(at 9.4545 2.948935 90)
 			(layer "F.SilkS")
 			(uuid "b4773309-e60a-471f-a582-46bd337fe87e")
 			(effects
@@ -932,7 +932,7 @@
 		(descr "Varistor, diameter 16.5mm, width 6.7mm, pitch 5mm, https://katalog.we-online.de/pbs/datasheet/820542711.pdf")
 		(tags "varistor SIOV")
 		(property "Reference" "RV1"
-			(at -1.5 2.3 0)
+			(at -6.5405 0.254 0)
 			(layer "F.SilkS")
 			(uuid "a9ed6ab1-79f4-4f47-a441-f157cccf22ca")
 			(effects
@@ -5316,7 +5316,7 @@
 		(descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor handsolder")
 		(property "Reference" "R3"
-			(at 5.081 1.9355 0)
+			(at 3.065935 -0.0715 0)
 			(layer "F.SilkS")
 			(uuid "88c8ba6d-ec7f-4502-a255-4fec3c757bdd")
 			(effects
@@ -7085,9 +7085,9 @@
 		(descr "Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, length*diameter=4*2mm^2, http://www.diodes.com/_files/packages/DO-35.pdf")
 		(tags "Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm")
 		(property "Reference" "D1"
-			(at 3.81 -2.12 0)
+			(at 3.827935 2.2145 0)
 			(layer "F.SilkS")
-			(uuid "01a1ea65-2bd4-4997-b754-1ce7d894cf8d")
+			(uuid "9057db26-2014-40f9-91ac-d89c01acaf58")
 			(effects
 				(font
 					(size 1 1)
@@ -7098,7 +7098,7 @@
 		(property "Value" "1N4007"
 			(at -3.151 -6.1925 270)
 			(layer "F.Fab")
-			(uuid "a89cc253-51d4-4d69-b649-f5cab41cf50e")
+			(uuid "fa6fe372-c92b-4806-b580-468296368db2")
 			(effects
 				(font
 					(size 1 1)
@@ -7110,7 +7110,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2d9935c6-96c1-4e72-8580-139aae957240")
+			(uuid "2f70b721-4b76-46fe-9510-73a34593565e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7122,7 +7122,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "28ac799e-84be-458a-839b-f72ba99d1121")
+			(uuid "d12de5fd-e3de-459c-a908-fce0bb857cff")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7295,7 +7295,7 @@
 			(uuid "b44d6f25-8a64-4552-91b8-10484b87bfc0")
 		)
 		(fp_text user "K"
-			(at 0 -1.8 0)
+			(at -1.887065 -0.0715 0)
 			(layer "F.SilkS")
 			(uuid "892f4511-d587-4601-b602-d90b057481e9")
 			(effects
@@ -10167,7 +10167,7 @@
 		(descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor handsolder")
 		(property "Reference" "R2"
-			(at 4.08 -1.27 90)
+			(at 2.9925 -0.109065 90)
 			(layer "F.SilkS")
 			(uuid "b936dbd6-7154-424e-a0d9-08c70b5ff49d")
 			(effects
@@ -14648,7 +14648,7 @@
 		(descr "Fuseholder Clips, 5x20mm Cylinder Fuse, Pins Inline, Horizontal, Keystone 3517, http://www.keyelco.com/product-pdf.cfm?p=354")
 		(tags "fuse clip open")
 		(property "Reference" "F1"
-			(at 11.555 -4.5 0)
+			(at 11.68 3.937 0)
 			(layer "F.SilkS")
 			(uuid "302efa2e-68bd-461d-a2b3-dc5a7c4d1dce")
 			(effects
@@ -15644,7 +15644,7 @@
 		(descr "Terminal Block Phoenix MKDS-1,5-3-5.08, 3 pins, pitch 5.08mm, size 15.2x9.8mm, drill diameter 1.3mm, pad diameter 2.6mm, http://www.farnell.com/datasheets/100425.pdf, script-generated using https://gitlab.com/kicad/libraries/kicad-footprint-generator/-/tree/master/scripts/TerminalBlock_Phoenix")
 		(tags "THT Terminal Block Phoenix MKDS-1,5-3-5.08 pitch 5.08mm size 15.2x9.8mm drill 1.3mm pad 2.6mm")
 		(property "Reference" "J3"
-			(at 5.08 -6.32 0)
+			(at 14.465065 0.026 0)
 			(layer "F.SilkS")
 			(uuid "3cf35bc3-9756-48f9-9e16-2806e739b946")
 			(effects
@@ -20345,14 +20345,6 @@
 		(uuid "015fe283-57c5-40ab-bae7-16a8774b31e2")
 	)
 	(segment
-		(start 160.843907 67.575528)
-		(end 160.012879 66.7445)
-		(width 0.2)
-		(layer "F.Cu")
-		(net 48)
-		(uuid "072dd9fb-ee95-477f-91f6-383f793f9e2c")
-	)
-	(segment
 		(start 172.956935 89.256518)
 		(end 172.798717 89.414736)
 		(width 0.2)
@@ -20361,20 +20353,12 @@
 		(uuid "1aebfa1c-b3f1-4d2f-98bb-49411d20cd17")
 	)
 	(segment
-		(start 162.412932 69.144554)
-		(end 162.412932 69.2705)
+		(start 162.412932 69.2705)
+		(end 162.412932 69.144553)
 		(width 0.2)
 		(layer "F.Cu")
 		(net 48)
-		(uuid "3ec98dbc-b275-4c49-8560-058a5dee4bb7")
-	)
-	(segment
-		(start 160.843907 67.575528)
-		(end 162.412932 69.144554)
-		(width 0.2)
-		(layer "F.Cu")
-		(net 48)
-		(uuid "494132f3-ae67-4750-981f-2e7d9885ab5c")
+		(uuid "4cc012e6-63cf-4e9d-84b6-f3ccc4f4c02c")
 	)
 	(segment
 		(start 160.012879 66.7445)
@@ -20383,14 +20367,6 @@
 		(layer "F.Cu")
 		(net 48)
 		(uuid "5cdb8af0-d6cc-49be-bc88-361587ebca2a")
-	)
-	(segment
-		(start 160.706878 67.4385)
-		(end 160.843907 67.575528)
-		(width 0.2)
-		(layer "F.Cu")
-		(net 48)
-		(uuid "61de5b39-d2a6-4305-9a52-74db9cb9147c")
 	)
 	(segment
 		(start 140.682935 70.180435)
@@ -20415,6 +20391,14 @@
 		(layer "F.Cu")
 		(net 48)
 		(uuid "bb59ed04-d041-4940-b5bf-8df0196f5843")
+	)
+	(segment
+		(start 162.412932 69.144553)
+		(end 160.012879 66.7445)
+		(width 0.2)
+		(layer "F.Cu")
+		(net 48)
+		(uuid "e0a094c8-6579-4e2b-b049-06e9b38a911e")
 	)
 	(segment
 		(start 140.682935 68.9405)
