@@ -1,7 +1,0 @@
-dependencies:
-  FastAccelStepper:
-    git: https://github.com/gin66/FastAccelStepper.git
-    version: master
-  TMC2209:
-    git: https://github.com/pvginkel/TMC2209.git
-    version: esp-idf

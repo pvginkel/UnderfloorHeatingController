@@ -1,0 +1,24 @@
+menu "Device Configuration"
+
+    orsource "$IDF_PATH/examples/common_components/env_caps/$IDF_TARGET/Kconfig.env_caps"
+
+    config DEVICE_CONFIG_ENDPOINT
+        string "Device config endpoint (%s becomes MAC address)"
+
+    config DEVICE_MASTER_IN_PIN
+        int "Master in pin"
+        default -1
+
+    config DEVICE_MASTER_OUT_PIN
+        int "Master out pin"
+        default -1
+
+    config DEVICE_SLAVE_IN_PIN
+        int "Slave in pin"
+        default -1
+
+    config DEVICE_SLAVE_OUT_PIN
+        int "Slave out pin"
+        default -1
+
+endmenu
