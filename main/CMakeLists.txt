@@ -1,7 +1,7 @@
 idf_component_register(
     SRC_DIRS "."
     INCLUDE_DIRS "."
-    REQUIRES arduino-esp32 mqtt
+    REQUIRES mqtt
 )
 
 if (CMAKE_COMPILER_IS_GNUCC)

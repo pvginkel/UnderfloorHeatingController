@@ -2,10 +2,12 @@
 
 #include "DeviceState.h"
 #include "MQTTConnection.h"
+#include "UFHController.h"
 
 class Device {
     MQTTConnection& _mqtt_connection;
     DeviceState _state;
+    UFHController _device;
 
 public:
     Device(MQTTConnection& mqtt_connection);

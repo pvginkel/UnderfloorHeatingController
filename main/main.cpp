@@ -1,7 +1,3 @@
-#include <Arduino.h>
-
-// Comment to ensure the Arduino.h header stays at the top.
-
 #include "support.h"
 
 #include "Application.h"
@@ -9,8 +5,6 @@
 LOG_TAG(main);
 
 extern "C" void app_main() {
-    initArduino();
-
     // If we've restarted because of a brownout or watchdog reset,
     // perform a silent startup.
     const auto resetReason = esp_reset_reason();

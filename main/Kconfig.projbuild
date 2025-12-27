@@ -5,20 +5,60 @@ menu "Device Configuration"
     config DEVICE_CONFIG_ENDPOINT
         string "Device config endpoint (%s becomes MAC address)"
 
-    config DEVICE_MASTER_IN_PIN
-        int "Master in pin"
+    config DEVICE_CURRENT_MONITOR_PIN
+        int "Current monitor pin"
         default -1
 
-    config DEVICE_MASTER_OUT_PIN
-        int "Master out pin"
+    config DEVICE_MOTOR_RELAY_PIN
+        int "Motor relay pin"
         default -1
 
-    config DEVICE_SLAVE_IN_PIN
-        int "Slave in pin"
+    config DEVICE_ETA_1_PIN
+        int "ETA 1 pin"
         default -1
 
-    config DEVICE_SLAVE_OUT_PIN
-        int "Slave out pin"
+    config DEVICE_ETA_2_PIN
+        int "ETA 2 pin"
+        default -1
+
+    config DEVICE_ETA_3_PIN
+        int "ETA 3 pin"
+        default -1
+
+    config DEVICE_ETA_4_PIN
+        int "ETA 4 pin"
+        default -1
+
+    config DEVICE_ETA_5_PIN
+        int "ETA 5 pin"
+        default -1
+
+    config DEVICE_ETA_6_PIN
+        int "ETA 6 pin"
+        default -1
+
+    config DEVICE_ETA_7_PIN
+        int "ETA 7 pin"
+        default -1
+
+    config DEVICE_ETA_8_PIN
+        int "ETA 8 pin"
+        default -1
+
+    config DEVICE_ETA_9_PIN
+        int "ETA 9 pin"
+        default -1
+
+    config DEVICE_ETA_10_PIN
+        int "ETA 10 pin"
+        default -1
+
+    config DEVICE_ETA_11_PIN
+        int "ETA 11 pin"
+        default -1
+
+    config DEVICE_ETA_12_PIN
+        int "ETA 12 pin"
         default -1
 
 endmenu
