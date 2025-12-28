@@ -2,6 +2,20 @@
 
 #include <vector>
 
+class RoomConfiguration {
+    string _id;
+    string _name;
+    vector<int> _pins;
+
+public:
+    RoomConfiguration(const string& id, const string& name, const vector<int>& pins)
+        : _id(id), _name(name), _pins(pins) {}
+
+    const string& get_id() const { return _id; }
+    const string& get_name() const { return _name; }
+    const vector<int>& get_pins() const { return _pins; }
+};
+
 class DeviceConfiguration {
     static constexpr auto DEFAULT_ENABLE_OTA = true;
 
@@ -12,6 +26,7 @@ class DeviceConfiguration {
     string _mqtt_endpoint;
     string _mqtt_username;
     string _mqtt_password;
+    vector<RoomConfiguration> _rooms;
 
 public:
     DeviceConfiguration();
@@ -29,4 +44,5 @@ public:
     const string& get_mqtt_endpoint() { return _mqtt_endpoint; }
     const string& get_mqtt_username() { return _mqtt_username; }
     const string& get_mqtt_password() { return _mqtt_password; }
+    const vector<RoomConfiguration>& get_rooms() { return _rooms; }
 };

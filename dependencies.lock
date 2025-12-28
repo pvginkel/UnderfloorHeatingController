@@ -1,4 +1,14 @@
 dependencies:
+  esp-mqtt-support:
+    dependencies:
+    - name: idf
+      version: '>=5.3'
+    - name: esp-support
+      path: ../esp-support
+    source:
+      path: C:\Projects\esp-libs\esp-mqtt-support
+      type: local
+    version: 0.1.0
   esp-network-support:
     dependencies:
     - name: idf
@@ -22,9 +32,10 @@ dependencies:
       type: idf
     version: 5.5.2
 direct_dependencies:
+- esp-mqtt-support
 - esp-network-support
 - esp-support
 - idf
-manifest_hash: 6f5d1609ad9b9236a2f76ec717794998ca1795bff697b29d1161c7f4b4aaf65b
+manifest_hash: 5c60135af6c9f059ce464179cee10507cd54ab32dab418e36f3e2e61584d10d3
 target: esp32s3
 version: 2.0.0

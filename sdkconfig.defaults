@@ -41,3 +41,10 @@ CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
 # Required for WiFI
 
 CONFIG_DIAG_USE_EXTERNAL_LOG_WRAP=y
+
+# MQTT device configuration
+
+CONFIG_MQTT_TOPIC_PREFIX="underfloor_heating_controller"
+CONFIG_MQTT_DEVICE_MANUFACTURER="Pieter"
+CONFIG_MQTT_DEVICE_MODEL="Underfloor Heating Controller"
+CONFIG_MQTT_DEVICE_MODEL_ID="Underfloor Heating Controller v1"

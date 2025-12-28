@@ -14,7 +14,8 @@ using namespace std;
 
 #include <string>
 
-#include "cJSON.h"
+#include "cJSONSupport.h"
+#include "esp_check.h"
 #include "esp_err.h"
 #include "esp_http_client.h"
 #include "esp_log.h"
@@ -27,6 +28,8 @@ using namespace std;
 
 #define __CONCAT3(a, b, c) a##b##c
 #define CONCAT3(a, b, c) __CONCAT3(a, b, c)
+
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
 #define esp_get_millis() uint32_t(esp_timer_get_time() / 1000ull)
 
@@ -85,27 +88,9 @@ int hextoi(char c);
 
 #define LOG_TAG(v) [[maybe_unused]] static const char* TAG = #v
 
-class cJSON_Data {
-    cJSON* _data;
-
-public:
-    cJSON_Data(cJSON* data) : _data(data) {}
-    cJSON_Data(const cJSON_Data& other) = delete;
-    cJSON_Data(cJSON_Data&& other) noexcept = delete;
-    cJSON_Data& operator=(const cJSON_Data& other) = delete;
-    cJSON_Data& operator=(cJSON_Data&& other) noexcept = delete;
-
-    ~cJSON_Data() {
-        if (_data) {
-            cJSON_Delete(_data);
-        }
-    }
-
-    cJSON* operator*() const { return _data; }
-};
-
 esp_err_t esp_http_download_string(const esp_http_client_config_t& config, string& target, size_t max_length = 0,
                                    const char* authorization = nullptr);
 esp_err_t esp_http_upload_string(const esp_http_client_config_t& config, const char* const data);
 char const* esp_reset_reason_to_name(esp_reset_reason_t reason);
 esp_err_t parse_endpoint(sockaddr_in* addr, const char* input);
+bool nearly_equal(double a, double b, double eps);

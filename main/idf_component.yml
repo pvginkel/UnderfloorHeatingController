@@ -2,5 +2,7 @@ dependencies:
   idf: ">=5.5"
   esp-network-support:
     path: ../../esp-libs/esp-network-support
+  esp-mqtt-support:
+    path: ../../esp-libs/esp-mqtt-support
   esp-support:
     path: ../../esp-libs/esp-support

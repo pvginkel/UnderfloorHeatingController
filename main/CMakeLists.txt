@@ -1,7 +1,7 @@
 idf_component_register(
     SRC_DIRS "."
     INCLUDE_DIRS "."
-    REQUIRES mqtt
+    REQUIRES esp_adc
 )
 
 if (CMAKE_COMPILER_IS_GNUCC)

@@ -2313,6 +2313,15 @@ CONFIG_WIFI_PROV_STA_ALL_CHANNEL_SCAN=y
 # end of Wi-Fi Provisioning Manager
 
 #
+# MQTT Configuration
+#
+CONFIG_MQTT_TOPIC_PREFIX="underfloor_heating_controller"
+CONFIG_MQTT_DEVICE_MANUFACTURER="Pieter"
+CONFIG_MQTT_DEVICE_MODEL="Underfloor Heating Controller"
+CONFIG_MQTT_DEVICE_MODEL_ID="Underfloor Heating Controller v1"
+# end of MQTT Configuration
+
+#
 # Network Configuration
 #
 CONFIG_WIFI_SSID="Thing-Fish"

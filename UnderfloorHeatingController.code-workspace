@@ -8,6 +8,9 @@
     },
     {
       "path": "../esp-libs/esp-network-support"
+    },
+    {
+      "path": "../esp-libs/esp-mqtt-support"
     }
   ],
   "settings": {

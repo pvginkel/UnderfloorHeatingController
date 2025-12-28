@@ -7,7 +7,8 @@
 
 LOG_TAG(Application);
 
-Application::Application() : _network_connection(&_queue), _mqtt_connection(&_queue), _device(_mqtt_connection) {}
+Application::Application()
+    : _network_connection(&_queue), _mqtt_connection(&_queue), _device(&_queue, _mqtt_connection) {}
 
 void Application::begin(bool silent) {
     ESP_LOGI(TAG, "Setting up the log manager");
@@ -77,7 +78,14 @@ void Application::begin_network_available() {
         }
     });
 
-    _mqtt_connection.set_configuration(&_configuration);
+    _mqtt_connection.set_configuration({
+        .mqtt_endpoint = _configuration.get_mqtt_endpoint(),
+        .mqtt_username = _configuration.get_mqtt_username(),
+        .mqtt_password = _configuration.get_mqtt_password(),
+        .device_name = _configuration.get_device_name(),
+        .device_entity_id = _configuration.get_device_entity_id(),
+    });
+    _device.set_configuration(&_configuration);
 
     _mqtt_connection.begin();
 }
@@ -91,7 +99,4 @@ void Application::begin_after_initialization() {
     ESP_LOGI(TAG, "Startup complete");
 }
 
-void Application::process() {
-    _queue.process();
-    _device.process();
-}
+void Application::process() { _queue.process(); }

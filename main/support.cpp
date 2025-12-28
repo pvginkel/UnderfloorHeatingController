@@ -145,3 +145,5 @@ esp_err_t parse_endpoint(sockaddr_in* addr, const char* input) {
 
     return ESP_OK;
 }
+
+bool nearly_equal(double a, double b, double eps) { return std::abs(a - b) <= eps; }
