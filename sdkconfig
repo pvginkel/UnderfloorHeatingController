@@ -2345,6 +2345,12 @@ CONFIG_LOG_ENDPOINT="http://iotlogging.home/"
 CONFIG_LOG_INTERVAL=5000
 CONFIG_LOG_RECV_TIMEOUT=15000
 # end of Logging Configuration
+
+#
+# Status Led Configuration
+#
+CONFIG_STATUS_LED_WS2812_PIN=38
+# end of Status Led Configuration
 # end of Component config
 
 # CONFIG_IDF_EXPERIMENTAL_FEATURES is not set

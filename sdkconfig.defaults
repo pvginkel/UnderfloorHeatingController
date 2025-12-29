@@ -48,3 +48,7 @@ CONFIG_MQTT_TOPIC_PREFIX="underfloor_heating_controller"
 CONFIG_MQTT_DEVICE_MANUFACTURER="Pieter"
 CONFIG_MQTT_DEVICE_MODEL="Underfloor Heating Controller"
 CONFIG_MQTT_DEVICE_MODEL_ID="Underfloor Heating Controller v1"
+
+# Status Led Configuration
+
+CONFIG_STATUS_LED_WS2812_PIN=38

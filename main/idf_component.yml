@@ -4,5 +4,7 @@ dependencies:
     path: ../../esp-libs/esp-network-support
   esp-mqtt-support:
     path: ../../esp-libs/esp-mqtt-support
+  esp-status-led-support:
+    path: ../../esp-libs/esp-status-led-support
   esp-support:
     path: ../../esp-libs/esp-support

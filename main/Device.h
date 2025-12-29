@@ -20,12 +20,14 @@ class Device {
     ACS725 _current_meter;
     DeviceConfiguration* _configuration;
     map<string, size_t> _room_index;
+    Callback<void> _activity;
 
 public:
     Device(Queue* queue, MQTTConnection& mqtt_connection);
 
     void begin();
     void set_configuration(DeviceConfiguration* configuration);
+    void on_activity(function<void()> func) { _activity.add(func); }
 
 private:
     void state_changed();

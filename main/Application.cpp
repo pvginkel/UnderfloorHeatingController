@@ -13,7 +13,17 @@ Application::Application()
 void Application::begin(bool silent) {
     ESP_LOGI(TAG, "Setting up the log manager");
 
+    _status_led.begin();
     _log_manager.begin();
+
+    _status_led.set_color(Colors::Blue);
+    _status_led.set_mode(StatusLedMode::Blinking, 400);
+
+    _device.on_activity([this]() {
+        if (!_status_led.is_active()) {
+            _status_led.set_mode(StatusLedMode::Continuous, 1);
+        }
+    });
 
     setup_flash();
 
@@ -50,6 +60,8 @@ void Application::begin_network() {
 
 void Application::begin_network_available() {
     ESP_LOGI(TAG, "Getting device configuration");
+
+    _status_led.set_color(Colors::Green);
 
     auto err = _configuration.load();
 
@@ -96,7 +108,13 @@ void Application::begin_after_initialization() {
     auto reset_reason = esp_reset_reason();
     ESP_LOGI(TAG, "esp_reset_reason: %s (%d)", esp_reset_reason_to_name(reset_reason), reset_reason);
 
+    _status_led.set_color(Colors::Green);
+    _status_led.set_mode(StatusLedMode::Continuous, 3000);
+
     ESP_LOGI(TAG, "Startup complete");
 }
 
-void Application::process() { _queue.process(); }
+void Application::process() {
+    _queue.process();
+    _status_led.process();
+}

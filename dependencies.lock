@@ -19,6 +19,18 @@ dependencies:
       path: C:\Projects\esp-libs\esp-network-support
       type: local
     version: 0.1.0
+  esp-status-led-support:
+    dependencies:
+    - name: idf
+      version: '>=5.3'
+    - name: espressif/led_strip
+      version: '*'
+    - name: esp-support
+      path: ../esp-support
+    source:
+      path: C:\Projects\esp-libs\esp-status-led-support
+      type: local
+    version: 0.1.0
   esp-support:
     dependencies:
     - name: idf
@@ -27,6 +39,16 @@ dependencies:
       path: C:\Projects\esp-libs\esp-support
       type: local
     version: 0.1.0
+  espressif/led_strip:
+    component_hash: f0d1b7f93eb3ee57bcfd220656176b0b5616e1947f89ed44364555cf910c4840
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 3.0.2
   idf:
     source:
       type: idf
@@ -34,8 +56,9 @@ dependencies:
 direct_dependencies:
 - esp-mqtt-support
 - esp-network-support
+- esp-status-led-support
 - esp-support
 - idf
-manifest_hash: 5c60135af6c9f059ce464179cee10507cd54ab32dab418e36f3e2e61584d10d3
+manifest_hash: 5c0efd85e72c1e701310d458bccd26b220860aca74d69de5d67dd1d913736271
 target: esp32s3
 version: 2.0.0

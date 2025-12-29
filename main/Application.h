@@ -7,6 +7,7 @@
 #include "NetworkConnection.h"
 #include "OTAManager.h"
 #include "Queue.h"
+#include "WS2812StatusLed.h"
 
 class Application {
     NetworkConnection _network_connection;
@@ -16,6 +17,7 @@ class Application {
     Queue _queue;
     DeviceConfiguration _configuration;
     LogManager _log_manager;
+    WS2812StatusLed _status_led;
 
 public:
     Application();

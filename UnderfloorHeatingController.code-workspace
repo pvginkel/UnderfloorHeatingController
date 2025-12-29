@@ -11,6 +11,12 @@
     },
     {
       "path": "../esp-libs/esp-mqtt-support"
+    },
+    {
+      "path": "../esp-libs/esp-light-algorithms"
+    },
+    {
+      "path": "../esp-libs/esp-status-led-support"
     }
   ],
   "settings": {

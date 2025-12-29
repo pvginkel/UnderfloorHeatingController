@@ -27,9 +27,11 @@ void Device::begin() {
     });
 
     _current_meter.on_current_changed([this](auto current) {
-        _state.current = current;
+        if (_state.current != current) {
+            _state.current = current;
 
-        state_changed();
+            state_changed();
+        }
     });
 }
 
@@ -61,6 +63,8 @@ void Device::state_changed() {
         cJSON_AddStringToObject(*data, strformat("room_%s_on", rooms[i].get_id().c_str()).c_str(),
                                 print_switch_state(_state.room_on[i] ? SwitchState::ON : SwitchState::OFF));
     }
+
+    _activity.call();
 
     _mqtt_connection.send_state(*data);
 }
