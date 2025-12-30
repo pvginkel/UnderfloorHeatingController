@@ -61,4 +61,8 @@ menu "Device Configuration"
         int "ETA 12 pin"
         default -1
 
+    config DEVICE_CURRENT_METER_REPORT_INTERVAL_MS
+        int "Current meter report interval in ms"
+        default 10000
+
 endmenu

@@ -15,7 +15,7 @@ void Device::begin() {
 
     ESP_ERROR_CHECK(_device.begin());
 
-    ESP_ERROR_CHECK(_current_meter.begin(10'000));
+    ESP_ERROR_CHECK(_current_meter.begin(CONFIG_DEVICE_CURRENT_METER_REPORT_INTERVAL_MS));
 
     _mqtt_connection.on_publish_discovery([this]() { publish_mqtt_discovery(); });
     _mqtt_connection.on_set_message([this](auto data) { handle_set_message(data.topic, data.data); });
