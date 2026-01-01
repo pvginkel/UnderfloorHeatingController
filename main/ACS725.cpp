@@ -34,6 +34,8 @@ static NVSPropertyF32 nvs_noise_floor_a("noise_a");
 #define ACS725_DMA_BUFFER_SIZE 256
 #define ACS725_DMA_BUFFER_COUNT 4
 
+#define ASSUMED_VOLTAGE 230
+
 // -------------------------------------------------------------------------
 
 static bool adc_calibration_init(adc_unit_t unit, adc_atten_t atten, adc_cali_handle_t* out_handle) {
@@ -132,12 +134,12 @@ esp_err_t ACS725::begin(uint32_t report_interval_ms) {
 void ACS725::task_loop() {
     load_state();
 
-    if (_zero_mv == 0 || true) {
+    if (_zero_mv == 0) {
         ESP_LOGI(TAG, "Starting calibration");
         _calibration = new ACS725Calibration({});
         _calibration->reset();
     } else {
-        ESP_LOGI(TAG, "Loaded calibration: zero_mv=%.1f noise_floor=%.3fA", _zero_mv, _noise_floor_a);
+        ESP_LOGI(TAG, "Loaded calibration: zero mv %.1fmv noise_floor %.3fA", _zero_mv, _noise_floor_a);
     }
 
     uint8_t buffer[ACS725_DMA_BUFFER_SIZE];
@@ -147,16 +149,18 @@ void ACS725::task_loop() {
 
     while (true) {
         const auto now_ms = esp_get_millis();
-        const auto delay = next_report_ms - now_ms;
 
-        if (delay <= 0) {
+        if (now_ms >= next_report_ms) {
             // Don't report values while calibration is in progress.
             if (!_calibration) {
                 // Report the current RMS, corrected for noise floor.
                 const float rms_raw = std::sqrt(_ring_sum / (float)_ring_size);
                 const float rms = std::sqrt(std::max(0.0f, rms_raw * rms_raw - _noise_floor_a * _noise_floor_a));
+                const bool report = rms >= _noise_floor_a;
 
-                ESP_LOGI(TAG, "Reported %f A (raw %f, noise floor %f)", rms, rms_raw, _noise_floor_a);
+                ESP_LOGI(TAG, "Report %.4f A (raw %.4f, noise floor %.4f, Watt %.1f) reporting %s", rms, rms_raw,
+                         _noise_floor_a, rms_raw * ASSUMED_VOLTAGE,
+                         report ? "YES" : "NO - below threshold of 2 x noise floor");
 
                 _current_changed.queue(_queue, rms);
             }
@@ -164,8 +168,10 @@ void ACS725::task_loop() {
             // Shift the next report window.
             do {
                 next_report_ms += _report_interval_ms;
+
             } while (next_report_ms < now_ms);
         } else {
+            const auto delay = next_report_ms - now_ms;
             esp_err_t err = adc_continuous_read(_adc_handle, buffer, sizeof(buffer), &bytes_read, delay);
 
             if (err == ESP_OK && bytes_read > 0) {
@@ -226,8 +232,9 @@ void ACS725::process_samples(const uint8_t* buffer, uint32_t len) {
                 _zero_mv = result.zero_mv;
                 _noise_floor_a = result.final_std_dev / ACS725_SENSITIVITY_MV_PER_A;
 
-                ESP_LOGI(TAG, "Calibration result: success=%s zero_mv=%.1f noise_floor=%.3fA",
-                         result.success ? "YES" : "NO", _zero_mv, _noise_floor_a);
+                ESP_LOGI(TAG,
+                         "Calibration result: success=%s zero_mv=%.1fmv noise floor=%.3fA standard deviation %.3fmv",
+                         result.success ? "YES" : "NO", _zero_mv, _noise_floor_a, result.final_std_dev);
 
                 ESP_ERROR_ASSERT(result.success);
 
