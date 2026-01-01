@@ -18,6 +18,9 @@ static NVSPropertyF32 nvs_noise_floor_a("noise_a");
 
 // -------------------- USER-TUNABLE COMPILE-TIME CONFIG --------------------
 
+// We sample off of a base frequency of 1 kHz. The multiplier increases this.
+#define ACS725_SAMPLE_FREQ_MULTIPLIER 4
+
 // ADC attenuation / bitwidth
 #define ACS725_ADC_ATTEN ADC_ATTEN_DB_12
 #define ACS725_ADC_BITWIDTH SOC_ADC_DIGI_MAX_BITWIDTH
@@ -26,15 +29,23 @@ static NVSPropertyF32 nvs_noise_floor_a("noise_a");
 // The one in use is ACS725LLCTR-10AB-T which has 132 mV/A.
 #define ACS725_SENSITIVITY_MV_PER_A 132.0f
 
-#define ACS725_CLIP_LOW_MV 50
-#define ACS725_CLIP_HIGH_MV 3250
-
 // Continuous mode configuration
-#define ACS725_SAMPLE_FREQ_HZ 1000
+#define ACS725_SAMPLE_FREQ_HZ (1000 * ACS725_SAMPLE_FREQ_MULTIPLIER)
 #define ACS725_DMA_BUFFER_SIZE 256
 #define ACS725_DMA_BUFFER_COUNT 4
 
+// Constants used for calculations.
+#define CLIP_LOW_MV 50
+#define CLIP_HIGH_MV 3250
+
+// Used in logging only; not reported back over MQTT.
 #define ASSUMED_VOLTAGE 230
+
+// Overrides the calibrated noise floor. Calibration values are not
+// used at all in calculating the values reported over MQTT.
+// They're just informative. The value below however is based
+// off of empirical measurements.
+#define NOISE_FLOOR 0.013f
 
 // -------------------------------------------------------------------------
 
@@ -78,11 +89,10 @@ esp_err_t ACS725::begin(uint32_t report_interval_ms) {
     ESP_RETURN_ON_ERROR(adc_continuous_io_to_channel(CONFIG_DEVICE_CURRENT_MONITOR_PIN, &unit, &_channel), TAG,
                         "Failed to get ADC channel for GPIO %d", CONFIG_DEVICE_CURRENT_MONITOR_PIN);
 
-    // Since we're sampling at 1 kHZ, a report interval in milliseconds
-    // equates samples.
-    _report_interval_ms = report_interval_ms;
-    _window_samples = report_interval_ms;
-    _ring_size = report_interval_ms;
+    _ring_size = (report_interval_ms * ACS725_SAMPLE_FREQ_HZ) / 1000;
+
+    ESP_LOGI(TAG, "Configuring ACS725 frequency %" PRIu32 "Hz report interval %" PRIu32 "ms ring size %" PRIu32,
+             uint32_t(ACS725_SAMPLE_FREQ_HZ), report_interval_ms, _ring_size);
 
     _ring = (float*)calloc(_ring_size, sizeof(float));
     if (!_ring) {
@@ -145,41 +155,14 @@ void ACS725::task_loop() {
     uint8_t buffer[ACS725_DMA_BUFFER_SIZE];
     uint32_t bytes_read = 0;
 
-    auto next_report_ms = esp_get_millis() + _report_interval_ms;
-
     while (true) {
-        const auto now_ms = esp_get_millis();
+        esp_err_t err = adc_continuous_read(_adc_handle, buffer, sizeof(buffer), &bytes_read, portMAX_DELAY);
 
-        if (now_ms >= next_report_ms) {
-            // Don't report values while calibration is in progress.
-            if (!_calibration) {
-                // Report the current RMS, corrected for noise floor.
-                const float rms_raw = std::sqrt(_ring_sum / (float)_ring_size);
-                const float rms = std::sqrt(std::max(0.0f, rms_raw * rms_raw - _noise_floor_a * _noise_floor_a));
-                const bool report = rms >= _noise_floor_a;
-
-                ESP_LOGI(TAG, "Report %.4f A (raw %.4f, noise floor %.4f, Watt %.1f) reporting %s", rms, rms_raw,
-                         _noise_floor_a, rms_raw * ASSUMED_VOLTAGE,
-                         report ? "YES" : "NO - below threshold of 2 x noise floor");
-
-                _current_changed.queue(_queue, rms);
-            }
-
-            // Shift the next report window.
-            do {
-                next_report_ms += _report_interval_ms;
-
-            } while (next_report_ms < now_ms);
-        } else {
-            const auto delay = next_report_ms - now_ms;
-            esp_err_t err = adc_continuous_read(_adc_handle, buffer, sizeof(buffer), &bytes_read, delay);
-
-            if (err == ESP_OK && bytes_read > 0) {
-                process_samples(buffer, bytes_read);
-            } else if (err != ESP_ERR_TIMEOUT) {
-                ESP_LOGW(TAG, "adc_continuous_read failed: %s", esp_err_to_name(err));
-                vTaskDelay(pdMS_TO_TICKS(10));
-            }
+        if (err == ESP_OK && bytes_read > 0) {
+            process_samples(buffer, bytes_read);
+        } else if (err != ESP_ERR_TIMEOUT) {
+            ESP_LOGW(TAG, "adc_continuous_read failed: %s", esp_err_to_name(err));
+            vTaskDelay(pdMS_TO_TICKS(10));
         }
     }
 }
@@ -220,7 +203,9 @@ void ACS725::process_samples(const uint8_t* buffer, uint32_t len) {
         int mv = 0;
 
         if (adc_cali_raw_to_voltage(_cali_handle, raw, &mv) != ESP_OK) {
-            continue;
+            // A 0 sample is a marker meaning an invalid value. This ensures we
+            // do track all samples.
+            mv = 0;
         }
 
         if (_calibration) {
@@ -233,8 +218,9 @@ void ACS725::process_samples(const uint8_t* buffer, uint32_t len) {
                 _noise_floor_a = result.final_std_dev / ACS725_SENSITIVITY_MV_PER_A;
 
                 ESP_LOGI(TAG,
-                         "Calibration result: success=%s zero_mv=%.1fmv noise floor=%.3fA standard deviation %.3fmv",
-                         result.success ? "YES" : "NO", _zero_mv, _noise_floor_a, result.final_std_dev);
+                         "Calibration result: success=%s zero_mv=%.1fmv noise floor=%.3fA (defined noise floor=%.3fA) "
+                         "standard deviation %.3fmv",
+                         result.success ? "YES" : "NO", _zero_mv, _noise_floor_a, NOISE_FLOOR, result.final_std_dev);
 
                 ESP_ERROR_ASSERT(result.success);
 
@@ -243,32 +229,57 @@ void ACS725::process_samples(const uint8_t* buffer, uint32_t len) {
                 delete _calibration;
                 _calibration = nullptr;
             }
-        } else {
-            // Convert to current (A), then square for RMS calculation
-            const float current_a = ((float)mv - _zero_mv) / ACS725_SENSITIVITY_MV_PER_A;
-            window_push(current_a * current_a);
+            continue;
+        }
 
-            _sample_count++;
-            if (_sample_count >= _window_samples) {
-                _sample_count = 0;
+        // Convert to current (A), then square for RMS calculation
+        _ring[_ring_idx++] = mv;
+
+        // Report when the ring buffer is full.
+        if (_ring_idx >= _ring_size) {
+            _ring_idx = 0;
+
+            // Calculate the mean.
+            int clipped = 0;
+
+            uint64_t sum = 0;
+            for (size_t i = 0; i < _ring_size; i++) {
+                const auto value = _ring[i];
+                if (value >= CLIP_LOW_MV && value <= CLIP_HIGH_MV) {
+                    sum += value;
+                } else {
+                    clipped++;
+                }
             }
+
+            if (clipped) {
+                ESP_LOGW(TAG, "%d samples clipped", clipped);
+            }
+
+            const auto mean = (float)sum / (_ring_size - clipped);
+
+            // Calculate the RMS current.
+            float current_a_sum = 0;
+
+            for (size_t i = 0; i < _ring_size; i++) {
+                const auto value = _ring[i];
+                if (value >= CLIP_LOW_MV && value <= CLIP_HIGH_MV) {
+                    const float current_a = (value - mean) / ACS725_SENSITIVITY_MV_PER_A;
+                    current_a_sum += current_a * current_a;
+                }
+            }
+
+            const float rms_raw_squared = current_a_sum / (_ring_size - clipped);
+            const float rms_raw = sqrt(max(0.0f, rms_raw_squared));
+            const bool report = rms_raw >= 2 * NOISE_FLOOR;
+            const float rms = sqrt(max(0.0f, rms_raw_squared - NOISE_FLOOR * NOISE_FLOOR));
+
+            ESP_LOGI(TAG,
+                     "Report %.4fA (raw %.4f, noise floor %.4f, Watt %.1f) mean %.1f mean offset %.1f reporting %s",
+                     rms, rms_raw, NOISE_FLOOR, rms * ASSUMED_VOLTAGE, mean, _zero_mv - mean,
+                     report ? "YES" : "NO - below threshold of 2 x noise floor");
+
+            _current_changed.queue(_queue, rms);
         }
-    }
-}
-
-void ACS725::window_push(float current_squared) {
-    _ring_sum -= _ring[_ring_idx];
-    _ring[_ring_idx] = current_squared;
-    _ring_sum += current_squared;
-
-    if (++_ring_idx >= _ring_size) {
-        _ring_idx = 0;
-
-        // Recalculate sum from scratch to avoid floating-point accumulation error.
-        float sum = 0.0f;
-        for (size_t i = 0; i < _ring_size; i++) {
-            sum += _ring[i];
-        }
-        _ring_sum = sum;
     }
 }

@@ -14,8 +14,6 @@
 class ACS725 {
     Queue* _queue{};
     adc_channel_t _channel{};
-    uint32_t _report_interval_ms{};
-    uint32_t _window_samples{};
 
     adc_continuous_handle_t _adc_handle{};
     adc_cali_handle_t _cali_handle{};
@@ -27,8 +25,6 @@ class ACS725 {
     float* _ring{};
     size_t _ring_size{};
     size_t _ring_idx{};
-    float _ring_sum{};
-    size_t _sample_count{};
 
     Callback<float> _current_changed;
 
@@ -45,6 +41,5 @@ private:
     void task_loop();
     void load_state();
     void save_state();
-    void window_push(float current_squared);
     void process_samples(const uint8_t* buffer, uint32_t len);
 };
