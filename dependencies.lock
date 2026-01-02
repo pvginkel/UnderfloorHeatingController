@@ -19,6 +19,16 @@ dependencies:
       path: C:\Projects\esp-libs\esp-network-support
       type: local
     version: 0.1.0
+  esp-sensor-support:
+    dependencies:
+    - name: idf
+      version: '>=5.3'
+    - name: esp-support
+      path: ../esp-support
+    source:
+      path: C:\Projects\esp-libs\esp-sensor-support
+      type: local
+    version: 0.1.0
   esp-status-led-support:
     dependencies:
     - name: idf
@@ -56,9 +66,10 @@ dependencies:
 direct_dependencies:
 - esp-mqtt-support
 - esp-network-support
+- esp-sensor-support
 - esp-status-led-support
 - esp-support
 - idf
-manifest_hash: 5c0efd85e72c1e701310d458bccd26b220860aca74d69de5d67dd1d913736271
+manifest_hash: 0c0a9dba0bf2ddd1c82661a568715bb064017e33a49c3dc604c83246380ee8bd
 target: esp32s3
 version: 2.0.0
