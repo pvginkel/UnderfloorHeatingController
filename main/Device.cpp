@@ -18,7 +18,6 @@ void Device::begin() {
     ESP_ERROR_CHECK(_current_meter.begin(CONFIG_DEVICE_CURRENT_METER_REPORT_INTERVAL_MS));
 
     _mqtt_connection.on_publish_discovery([this]() { publish_mqtt_discovery(); });
-    _mqtt_connection.on_set_message([this](auto data) { handle_set_message(data.topic, data.data); });
 
     _mqtt_connection.on_connected_changed([this](auto state) {
         if (state.connected) {
@@ -78,18 +77,28 @@ void Device::save_state() {
 }
 
 void Device::publish_mqtt_discovery() {
-    _mqtt_connection.publish_button_discovery({
-        .name = "Identify",
-        .object_id = "identify",
-        .entity_category = "config",
-        .device_class = "identify",
-    });
-    _mqtt_connection.publish_button_discovery({
-        .name = "Restart",
-        .object_id = "restart",
-        .entity_category = "config",
-        .device_class = "restart",
-    });
+    _mqtt_connection.publish_button_discovery(
+        {
+            .name = "Identify",
+            .object_id = "identify",
+            .entity_category = "config",
+            .device_class = "identify",
+        },
+        []() { ESP_LOGI(TAG, "Requested identification"); });
+
+    _mqtt_connection.publish_button_discovery(
+        {
+            .name = "Restart",
+            .object_id = "restart",
+            .entity_category = "config",
+            .device_class = "restart",
+        },
+        []() {
+            ESP_LOGI(TAG, "Requested restart");
+
+            esp_restart();
+        });
+
     _mqtt_connection.publish_sensor_discovery(
         {
             .name = "Current",
@@ -109,9 +118,20 @@ void Device::publish_mqtt_discovery() {
         },
         {
             .value_template = "{{ value_json.motor_on }}",
+        },
+        [this](auto state) {
+            ESP_LOGI(TAG, "Requested motor switch change");
+
+            _device.set_motor_on(state);
+
+            _state.motor_on = state;
+
+            state_changed();
         });
 
-    for (const auto& room : _configuration->get_rooms()) {
+    for (size_t room_index = 0; room_index < _configuration->get_rooms().size(); room_index++) {
+        const auto& room = _configuration->get_rooms()[room_index];
+
         _mqtt_connection.publish_switch_discovery(
             {
                 .name = room.get_name().c_str(),
@@ -119,43 +139,15 @@ void Device::publish_mqtt_discovery() {
             },
             {
                 .value_template = strformat("{{ value_json.room_%s_on }}", room.get_id().c_str()).c_str(),
-            });
-    }
-}
+            },
+            [this, room_index](auto state) {
+                ESP_LOGI(TAG, "Requested room switch change for room %d", room_index);
 
-void Device::handle_set_message(const string& topic, const string& data) {
-    if (topic == "identify") {
-        ESP_LOGI(TAG, "Requested identification");
-    } else if (topic == "restart") {
-        ESP_LOGI(TAG, "Requested restart");
+                _device.set_room_on(room_index, state);
 
-        esp_restart();
-    } else if (topic == "motor") {
-        ESP_LOGI(TAG, "Requested motor switch change");
-
-        auto switch_state = parse_switch_state(data.c_str());
-        if (switch_state != SwitchState::UNKNOWN) {
-            _device.set_motor_on(switch_state == SwitchState::ON);
-
-            _state.motor_on = switch_state == SwitchState::ON;
-
-            state_changed();
-        }
-    } else {
-        auto it = _room_index.find(topic);
-        if (it != _room_index.end()) {
-            ESP_LOGI(TAG, "Requested room switch change for room %d", it->second);
-
-            auto switch_state = parse_switch_state(data.c_str());
-            if (switch_state != SwitchState::UNKNOWN) {
-                _device.set_room_on(it->second, switch_state == SwitchState::ON);
-
-                _state.room_on[it->second] = switch_state == SwitchState::ON;
+                _state.room_on[room_index] = state;
 
                 state_changed();
-            }
-        } else {
-            ESP_LOGE(TAG, "Unknown topic %s", topic.c_str());
-        }
+            });
     }
 }

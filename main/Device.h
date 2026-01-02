@@ -34,5 +34,4 @@ private:
     void load_state();
     void save_state();
     void publish_mqtt_discovery();
-    void handle_set_message(const string& topic, const string& data);
 };
