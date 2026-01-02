@@ -78,17 +78,48 @@ void Device::save_state() {
 }
 
 void Device::publish_mqtt_discovery() {
-    _mqtt_connection.publish_button_discovery("Identify", "identify", nullptr, "config", "identify");
-    _mqtt_connection.publish_button_discovery("Restart", "restart", nullptr, "config", "restart");
+    _mqtt_connection.publish_button_discovery({
+        .name = "Identify",
+        .object_id = "identify",
+        .entity_category = "config",
+        .device_class = "identify",
+    });
+    _mqtt_connection.publish_button_discovery({
+        .name = "Restart",
+        .object_id = "restart",
+        .entity_category = "config",
+        .device_class = "restart",
+    });
+    _mqtt_connection.publish_sensor_discovery(
+        {
+            .name = "Current",
+            .object_id = "current",
+            .device_class = "current",
+        },
+        {
+            .state_class = "measurement",
+            .unit_of_measurement = "A",
+            .value_template = "{{ value_json.current }}",
+        });
 
-    _mqtt_connection.publish_sensor_discovery("Current", "current", nullptr, nullptr, "current", "measurement", "A",
-                                              "{{ value_json.current }}");
-    _mqtt_connection.publish_switch_discovery("Motor", "motor", nullptr, nullptr, nullptr, "{{ value_json.motor_on }}");
+    _mqtt_connection.publish_switch_discovery(
+        {
+            .name = "Motor",
+            .object_id = "motor",
+        },
+        {
+            .value_template = "{{ value_json.motor_on }}",
+        });
 
     for (const auto& room : _configuration->get_rooms()) {
         _mqtt_connection.publish_switch_discovery(
-            room.get_name().c_str(), strformat("room_%s", room.get_id().c_str()).c_str(), nullptr, nullptr, nullptr,
-            strformat("{{ value_json.room_%s_on }}", room.get_id().c_str()).c_str());
+            {
+                .name = room.get_name().c_str(),
+                .object_id = strformat("room_%s", room.get_id().c_str()).c_str(),
+            },
+            {
+                .value_template = strformat("{{ value_json.room_%s_on }}", room.get_id().c_str()).c_str(),
+            });
     }
 }
 
