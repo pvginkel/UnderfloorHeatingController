@@ -30,6 +30,7 @@
     }
   ],
   "settings": {
+    "C_Cpp.default.compileCommands": "${workspaceFolder:UnderfloorHeatingController}/build/compile_commands.json",
     "files.associations": {
       "array": "cpp",
       "*.tcc": "cpp",
