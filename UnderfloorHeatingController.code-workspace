@@ -2,32 +2,35 @@
   "folders": [
     {
       "name": "UnderfloorHeatingController",
-      "path": "."
+      "path": ".",
     },
     {
       "name": "esp-support",
-      "path": "../esp-libs/esp-support"
+      "path": "../esp-libs/esp-support",
     },
     {
       "name": "esp-network-support",
-      "path": "../esp-libs/esp-network-support"
+      "path": "../esp-libs/esp-network-support",
     },
     {
       "name": "esp-mqtt-support",
-      "path": "../esp-libs/esp-mqtt-support"
+      "path": "../esp-libs/esp-mqtt-support",
     },
     {
       "name": "esp-light-algorithms",
-      "path": "../esp-libs/esp-light-algorithms"
+      "path": "../esp-libs/esp-light-algorithms",
     },
     {
       "name": "esp-status-led-support",
-      "path": "../esp-libs/esp-status-led-support"
+      "path": "../esp-libs/esp-status-led-support",
     },
     {
       "name": "esp-sensor-support",
-      "path": "../esp-libs/esp-sensor-support"
-    }
+      "path": "../esp-libs/esp-sensor-support",
+    },
+    {
+      "path": "../esp-libs/esp-mdm",
+    },
   ],
   "settings": {
     "C_Cpp.default.compileCommands": "${workspaceFolder:UnderfloorHeatingController}/build/compile_commands.json",
@@ -133,13 +136,13 @@
       "typeindex": "cpp",
       "valarray": "cpp",
       "text_encoding": "cpp",
-      "generator": "cpp"
+      "generator": "cpp",
     },
     "files.exclude": {
       "**/.git": true,
       "**/.hg": true,
       "**/.svn": true,
-      "assets": true
-    }
-  }
+      "assets": true,
+    },
+  },
 }

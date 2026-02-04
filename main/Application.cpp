@@ -2,119 +2,160 @@
 
 #include "Application.h"
 
+#include "MQTTSupport.h"
 #include "driver/i2c.h"
 #include "nvs_flash.h"
 
 LOG_TAG(Application);
 
-Application::Application()
-    : _network_connection(&_queue), _mqtt_connection(&_queue), _device(&_queue, _mqtt_connection) {}
-
-void Application::begin(bool silent) {
-    ESP_LOGI(TAG, "Setting up the log manager");
-
+void Application::do_begin() {
     _status_led.begin();
-    _log_manager.begin();
 
     _status_led.set_color(Colors::Blue);
     _status_led.set_mode(StatusLedMode::Blinking, 400);
 
-    _device.on_activity([this]() {
-        if (!_status_led.is_active()) {
-            _status_led.set_mode(StatusLedMode::Continuous, 1);
-        }
-    });
+    get_mqtt_connection().on_publish_discovery([this]() { publish_mqtt_discovery(); });
 
-    setup_flash();
-
-    do_begin(silent);
-}
-
-void Application::setup_flash() {
-    ESP_LOGI(TAG, "Setting up flash");
-
-    auto ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        ret = nvs_flash_init();
-    }
-    ESP_ERROR_CHECK(ret);
-}
-
-void Application::do_begin(bool silent) { begin_network(); }
-
-void Application::begin_network() {
-    ESP_LOGI(TAG, "Connecting to WiFi");
-
-    _network_connection.on_state_changed([this](auto state) {
+    get_mqtt_connection().on_connected_changed([this](auto state) {
         if (state.connected) {
-            begin_network_available();
-        } else {
-            ESP_LOGE(TAG, "Failed to connect to WiFi; restarting");
-            esp_restart();
+            state_changed();
         }
     });
-
-    _network_connection.begin(CONFIG_WIFI_PASSWORD);
 }
 
-void Application::begin_network_available() {
-    ESP_LOGI(TAG, "Getting device configuration");
-
+void Application::do_configuration_loaded(cJSON* data) {
     _status_led.set_color(Colors::Green);
 
-    auto err = _configuration.load();
+    _configuration.load(data);
 
-    if (err != ESP_OK) {
-        ESP_LOGE(TAG, "Failed to get configuration; restarting");
-        esp_restart();
-        return;
-    }
-
-    _log_manager.set_device_entity_id(strdup(_configuration.get_device_entity_id().c_str()));
-
-    if (_configuration.get_enable_ota()) {
-        _ota_manager.begin();
-    }
-
-    _device.begin();
-
-    ESP_LOGI(TAG, "Connecting to MQTT");
-
-    _mqtt_connection.on_connected_changed([this](auto state) {
-        if (state.connected) {
-            _queue.enqueue([this]() { begin_after_initialization(); });
-        } else {
-            ESP_LOGE(TAG, "MQTT connection lost");
-            esp_restart();
-        }
-    });
-
-    _mqtt_connection.set_configuration({
-        .mqtt_endpoint = _configuration.get_mqtt_endpoint(),
-        .mqtt_username = _configuration.get_mqtt_username(),
-        .mqtt_password = _configuration.get_mqtt_password(),
-        .device_name = _configuration.get_device_name(),
-        .device_entity_id = _configuration.get_device_entity_id(),
-    });
     _device.set_configuration(&_configuration);
 
-    _mqtt_connection.begin();
+    const auto& rooms = _configuration.get_rooms();
+    for (size_t i = 0; i < rooms.size(); i++) {
+        _state.room_on.push_back(false);
+        _room_index[strformat("room_%s", rooms[i].get_id())] = i;
+    }
 }
 
-void Application::begin_after_initialization() {
-    // Log the reset reason.
-
-    auto reset_reason = esp_reset_reason();
-    ESP_LOGI(TAG, "esp_reset_reason: %s (%d)", esp_reset_reason_to_name(reset_reason), reset_reason);
-
+void Application::do_ready() {
     _status_led.set_color(Colors::Green);
     _status_led.set_mode(StatusLedMode::Continuous, 3000);
 
     ESP_LOGI(TAG, "Startup complete");
+
+    ESP_ERROR_CHECK(_device.begin());
+
+    ESP_ERROR_CHECK(_current_meter.begin(CONFIG_DEVICE_CURRENT_METER_REPORT_INTERVAL_MS));
+
+    _current_meter.on_current_changed([this](auto current) {
+        if (_state.current != current) {
+            _state.current = current;
+
+            state_changed();
+        }
+    });
 }
 
-void Application::process() {
-    _queue.process();
-    _status_led.process();
+void Application::do_process() { _status_led.process(); }
+
+void Application::state_changed() {
+    if (!get_mqtt_connection().is_connected()) {
+        return;
+    }
+
+    // Signal activity.
+    if (!_status_led.is_active()) {
+        _status_led.set_mode(StatusLedMode::Continuous, 1);
+    }
+
+    const auto json = cJSON_CreateObject();
+    ESP_ASSERT_CHECK(json);
+    DEFER(cJSON_Delete(json));
+
+    cJSON_AddNumberToObject(json, "current", _state.current);
+    cJSON_AddStringToObject(json, "motor_on", print_switch_state(_state.motor_on ? SwitchState::ON : SwitchState::OFF));
+
+    const auto& rooms = _configuration.get_rooms();
+    for (auto i = 0; i < rooms.size(); i++) {
+        cJSON_AddStringToObject(json, strformat("room_%s_on", rooms[i].get_id()).c_str(),
+                                print_switch_state(_state.room_on[i] ? SwitchState::ON : SwitchState::OFF));
+    }
+
+    get_mqtt_connection().send_state(json);
+}
+
+void Application::publish_mqtt_discovery() {
+    get_mqtt_connection().publish_button_discovery(
+        {
+            .name = "Identify",
+            .object_id = "identify",
+            .entity_category = "config",
+            .device_class = "identify",
+        },
+        []() { ESP_LOGI(TAG, "Requested identification"); });
+
+    get_mqtt_connection().publish_button_discovery(
+        {
+            .name = "Restart",
+            .object_id = "restart",
+            .entity_category = "config",
+            .device_class = "restart",
+        },
+        []() {
+            ESP_LOGI(TAG, "Requested restart");
+
+            esp_restart();
+        });
+
+    get_mqtt_connection().publish_sensor_discovery(
+        {
+            .name = "Current",
+            .object_id = "current",
+            .device_class = "current",
+        },
+        {
+            .state_class = "measurement",
+            .unit_of_measurement = "A",
+            .value_template = "{{ value_json.current }}",
+        });
+
+    get_mqtt_connection().publish_switch_discovery(
+        {
+            .name = "Motor",
+            .object_id = "motor",
+        },
+        {
+            .value_template = "{{ value_json.motor_on }}",
+        },
+        [this](auto state) {
+            ESP_LOGI(TAG, "Requested motor switch change");
+
+            _device.set_motor_on(state);
+
+            _state.motor_on = state;
+
+            state_changed();
+        });
+
+    for (size_t room_index = 0; room_index < _configuration.get_rooms().size(); room_index++) {
+        const auto& room = _configuration.get_rooms()[room_index];
+
+        get_mqtt_connection().publish_switch_discovery(
+            {
+                .name = room.get_name().c_str(),
+                .object_id = strformat("room_%s", room.get_id()).c_str(),
+            },
+            {
+                .value_template = strformat("{{ value_json.room_%s_on }}", room.get_id()).c_str(),
+            },
+            [this, room_index](auto state) {
+                ESP_LOGI(TAG, "Requested room switch change for room %d", room_index);
+
+                _device.set_room_on(room_index, state);
+
+                _state.room_on[room_index] = state;
+
+                state_changed();
+            });
+    }
 }

@@ -44,16 +44,16 @@ void UFHController::set_motor_on(bool enabled) {
 }
 
 void UFHController::set_room_on(int index, bool enabled) {
-    ESP_ERROR_ASSERT(_configuration);
+    ESP_ASSERT_CHECK(_configuration);
 
-    ESP_ERROR_ASSERT(index >= 0 && index < _configuration->get_rooms().size());
+    ESP_ASSERT_CHECK(index >= 0 && index < _configuration->get_rooms().size());
 
     const auto& room = _configuration->get_rooms()[index];
 
     // Room pin numbers are 1-12 and in the order of PIN_MAPPING.
 
     for (auto pin : room.get_pins()) {
-        ESP_ERROR_ASSERT(pin >= 1 && pin <= ARRAY_SIZE(PIN_MAPPING));
+        ESP_ASSERT_CHECK(pin >= 1 && pin <= ARRAY_SIZE(PIN_MAPPING));
 
         auto mapped_pin = PIN_MAPPING[pin - 1];
 

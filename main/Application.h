@@ -1,34 +1,34 @@
 #pragma once
 
-#include "Device.h"
+#include "ApplicationBase.h"
 #include "DeviceConfiguration.h"
-#include "LogManager.h"
-#include "MQTTConnection.h"
-#include "NetworkConnection.h"
-#include "OTAManager.h"
-#include "Queue.h"
+#include "UFHController.h"
 #include "WS2812StatusLed.h"
 
-class Application {
-    NetworkConnection _network_connection;
-    MQTTConnection _mqtt_connection;
-    Device _device;
-    OTAManager _ota_manager;
-    Queue _queue;
+class Application : public ApplicationBase {
+    struct DeviceState {
+        float current;
+        bool motor_on;
+        vector<bool> room_on;
+    };
+
+    DeviceState _state{};
+    UFHController _device;
+    ACS725 _current_meter;
+    map<string, size_t> _room_index;
     DeviceConfiguration _configuration;
-    LogManager _log_manager;
     WS2812StatusLed _status_led;
 
 public:
-    Application();
+    Application() : _current_meter(&get_queue()) {}
 
-    void begin(bool silent);
-    void process();
+protected:
+    void do_begin() override;
+    void do_ready() override;
+    void do_configuration_loaded(cJSON* data) override;
+    void do_process() override;
 
 private:
-    void setup_flash();
-    void do_begin(bool silent);
-    void begin_network();
-    void begin_network_available();
-    void begin_after_initialization();
+    void state_changed();
+    void publish_mqtt_discovery();
 };

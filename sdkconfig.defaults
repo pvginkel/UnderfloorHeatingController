@@ -15,15 +15,9 @@ CONFIG_DEVICE_ETA_10_PIN=12
 CONFIG_DEVICE_ETA_11_PIN=13
 CONFIG_DEVICE_ETA_12_PIN=14
 
-CONFIG_DEVICE_CONFIG_ENDPOINT="http://iotsupport.home/esp32/config/%s.json"
-CONFIG_WIFI_SSID="Thing-Fish"
-CONFIG_WIFI_CONNECT_ATTEMPTS=5
-CONFIG_OTA_ENDPOINT="http://iotsupport.home/assets/underfloor-heating-controller-ota.bin"
-CONFIG_LOG_ENDPOINT="http://iotlogging.home/"
-
 CONFIG_MQTT_PROTOCOL_5=y
 
-CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=6144
 
 # Setup flash
 
@@ -42,13 +36,13 @@ CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
 
 CONFIG_DIAG_USE_EXTERNAL_LOG_WRAP=y
 
-# MQTT device configuration
+# Status led
+
+CONFIG_STATUS_LED_WS2812_PIN=38
+
+# MQTT
 
 CONFIG_MQTT_TOPIC_PREFIX="underfloor_heating_controller"
 CONFIG_MQTT_DEVICE_MANUFACTURER="Pieter"
 CONFIG_MQTT_DEVICE_MODEL="Underfloor Heating Controller"
 CONFIG_MQTT_DEVICE_MODEL_ID="Underfloor Heating Controller v1"
-
-# Status Led Configuration
-
-CONFIG_STATUS_LED_WS2812_PIN=38

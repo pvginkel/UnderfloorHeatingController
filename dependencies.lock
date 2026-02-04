@@ -1,4 +1,18 @@
 dependencies:
+  esp-mdm:
+    dependencies:
+    - name: idf
+      version: '>=5.3'
+    - name: esp-mqtt-support
+      path: ../esp-mqtt-support
+    - name: esp-network-support
+      path: ../esp-network-support
+    - name: esp-support
+      path: ../esp-support
+    source:
+      path: C:\Projects\esp-libs\esp-mdm
+      type: local
+    version: 0.1.0
   esp-mqtt-support:
     dependencies:
     - name: idf
@@ -64,12 +78,13 @@ dependencies:
       type: idf
     version: 5.5.2
 direct_dependencies:
+- esp-mdm
 - esp-mqtt-support
 - esp-network-support
 - esp-sensor-support
 - esp-status-led-support
 - esp-support
 - idf
-manifest_hash: 0c0a9dba0bf2ddd1c82661a568715bb064017e33a49c3dc604c83246380ee8bd
+manifest_hash: a0ef74646b5fa0f795111c3d18d16478596da99b258d73ab84880c29e4e9e641
 target: esp32s3
 version: 2.0.0
