@@ -19,6 +19,7 @@ public:
 class DeviceConfiguration {
     static constexpr auto DEFAULT_ENABLE_OTA = true;
 
+    bool _automatic_motor_control{};
     vector<RoomConfiguration> _rooms;
 
 public:
@@ -30,5 +31,6 @@ public:
 
     esp_err_t load(cJSON* data);
 
-    const vector<RoomConfiguration>& get_rooms() { return _rooms; }
+    bool get_automatic_motor_control() const { return _automatic_motor_control; }
+    const vector<RoomConfiguration>& get_rooms() const { return _rooms; }
 };

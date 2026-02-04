@@ -155,7 +155,27 @@ void Application::publish_mqtt_discovery() {
 
                 _state.room_on[room_index] = state;
 
+                sync_automatic_motor_control();
+
                 state_changed();
             });
     }
+}
+
+void Application::sync_automatic_motor_control() {
+    if (!_configuration.get_automatic_motor_control()) {
+        return;
+    }
+
+    bool any_room_on = false;
+    for (const auto& room_on : _state.room_on) {
+        if (room_on) {
+            any_room_on = true;
+            break;
+        }
+    }
+
+    ESP_LOGI(TAG, "Automatic motor control: setting motor to %s", any_room_on ? "ON" : "OFF");
+
+    _device.set_motor_on(any_room_on);
 }

@@ -31,4 +31,5 @@ protected:
 private:
     void state_changed();
     void publish_mqtt_discovery();
+    void sync_automatic_motor_control();
 };

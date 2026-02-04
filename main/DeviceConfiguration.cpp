@@ -9,6 +9,16 @@
 LOG_TAG(DeviceConfiguration);
 
 esp_err_t DeviceConfiguration::load(cJSON* data) {
+    auto automatic_motor_control = cJSON_GetObjectItemCaseSensitive(data, "automaticMotorControl");
+    if (automatic_motor_control) {
+        if (!cJSON_IsBool(automatic_motor_control)) {
+            ESP_LOGE(TAG, "automaticMotorControl must be a boolean");
+            return ESP_ERR_INVALID_ARG;
+        }
+
+        _automatic_motor_control = cJSON_IsTrue(automatic_motor_control);
+    }
+
     auto rooms = cJSON_GetObjectItemCaseSensitive(data, "rooms");
     if (!cJSON_IsArray(rooms)) {
         ESP_LOGE(TAG, "Cannot get rooms");
