@@ -1,11 +1,13 @@
 library('JenkinsPipelineUtils') _
 
 withCredentials([
-    string(credentialsId: 'WIFI_PASSWORD', variable: 'WIFI_PASSWORD'),
+    string(credentialsId: 'IOTSUPPORT_CLIENT_ID', variable: 'IOTSUPPORT_CLIENT_ID'),
+    string(credentialsId: 'IOTSUPPORT_CLIENT_SECRET', variable: 'IOTSUPPORT_CLIENT_SECRET'),
 ]) {
     podTemplate(inheritFrom: 'jenkins-agent-large', containers: [
         containerTemplate(name: 'idf', image: 'espressif/idf:v5.5.2', command: 'sleep', args: 'infinity', envVars: [
-            containerEnvVar(key: 'WIFI_PASSWORD', value: '$WIFI_PASSWORD'),
+            containerEnvVar(key: 'IOTSUPPORT_CLIENT_ID', value: '$IOTSUPPORT_CLIENT_ID'),
+            containerEnvVar(key: 'IOTSUPPORT_CLIENT_SECRET', value: '$IOTSUPPORT_CLIENT_SECRET'),
         ])
     ]) {
         node(POD_LABEL) {
@@ -32,17 +34,9 @@ withCredentials([
             }
 
             stage('Deploy underfloor heating controller') {
-                dir('HelmCharts') {
-                    git branch: 'main',
-                        credentialsId: '5f6fbd66-b41c-405f-b107-85ba6fd97f10',
-                        url: 'https://github.com/pvginkel/HelmCharts.git'
-                }
-
                 dir('UnderfloorHeatingController') {
-                    sh 'cp build/underfloor-heating-controller.bin underfloor-heating-controller-ota.bin'
-
                     sh 'chmod +x scripts/upload.sh'
-                    sh 'scripts/upload.sh ../HelmCharts/assets/kubernetes-signing-key underfloor-heating-controller-ota.bin'
+                    sh 'scripts/upload.sh https://iot.ginbov.nl'
                 }
             }
         }

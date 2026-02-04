@@ -25,7 +25,6 @@ using namespace std;
 #include "freertos/FreeRTOS.h"
 #include "nvs_flash.h"
 #include "sdkconfig.h"
-#include "secrets.h"
 #include "strformat.h"
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
