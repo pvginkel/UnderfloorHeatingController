@@ -18,6 +18,7 @@ class Application : public ApplicationBase {
     map<string, size_t> _room_index;
     DeviceConfiguration _configuration;
     WS2812StatusLed _status_led;
+    DeviceState _state;
 
 public:
     Application() : _current_meter(&get_queue()) {}
@@ -32,4 +33,6 @@ private:
     void state_changed();
     void publish_mqtt_discovery();
     void sync_automatic_motor_control();
+    void load_state();
+    void save_state();
 };

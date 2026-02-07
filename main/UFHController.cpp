@@ -41,6 +41,8 @@ void UFHController::set_motor_on(bool enabled) {
     ESP_LOGI(TAG, "Setting motor pin to %d", enabled ? 1 : 0);
 
     ESP_ERROR_CHECK(gpio_set_level((gpio_num_t)CONFIG_DEVICE_MOTOR_RELAY_PIN, enabled ? 1 : 0));
+
+    _motor_on_changed.call({enabled});
 }
 
 void UFHController::set_room_on(int index, bool enabled) {
@@ -61,4 +63,6 @@ void UFHController::set_room_on(int index, bool enabled) {
 
         ESP_ERROR_CHECK(gpio_set_level(mapped_pin, enabled ? 1 : 0));
     }
+
+    _room_on_changed.call({index, enabled});
 }
