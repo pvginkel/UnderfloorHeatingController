@@ -22,7 +22,7 @@ esp_err_t UFHController::begin() {
          (1ull << CONFIG_DEVICE_ETA_2_PIN) | (1ull << CONFIG_DEVICE_ETA_3_PIN) | (1ull << CONFIG_DEVICE_ETA_4_PIN) |
          (1ull << CONFIG_DEVICE_ETA_5_PIN) | (1ull << CONFIG_DEVICE_ETA_6_PIN) | (1ull << CONFIG_DEVICE_ETA_7_PIN) |
          (1ull << CONFIG_DEVICE_ETA_8_PIN) | (1ull << CONFIG_DEVICE_ETA_9_PIN) | (1ull << CONFIG_DEVICE_ETA_10_PIN) |
-         (1ull << CONFIG_DEVICE_ETA_11_PIN) | (1ull << CONFIG_DEVICE_ETA_11_PIN));
+         (1ull << CONFIG_DEVICE_ETA_11_PIN) | (1ull << CONFIG_DEVICE_ETA_12_PIN));
     io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
 
