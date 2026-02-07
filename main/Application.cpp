@@ -42,6 +42,14 @@ void Application::do_begin() {
         }
     });
 
+    _current_meter.on_current_changed([this](auto current) {
+        if (_state.current != current) {
+            _state.current = current;
+
+            state_changed();
+        }
+    });
+
     get_mqtt_connection().on_publish_discovery([this]() { publish_mqtt_discovery(); });
 
     get_mqtt_connection().on_connected_changed([this](auto state) {
@@ -108,14 +116,6 @@ void Application::do_configuration_loaded(cJSON* data) {
 
     // Sync number of rooms in loaded state with the number of rooms in the configuration.
     _state.room_on.resize(rooms.size(), false);
-
-    // Sync loaded state with actual state. Motor must be set on first otherwise the
-    // sync motor logic may cause issues.
-    _device.set_motor_on(_state.motor_on);
-
-    for (size_t i = 0; i < rooms.size(); i++) {
-        _device.set_room_on(i, _state.room_on[i]);
-    }
 }
 
 void Application::do_ready() {
@@ -128,13 +128,13 @@ void Application::do_ready() {
 
     ESP_ERROR_CHECK(_current_meter.begin(CONFIG_DEVICE_CURRENT_METER_REPORT_INTERVAL_MS));
 
-    _current_meter.on_current_changed([this](auto current) {
-        if (_state.current != current) {
-            _state.current = current;
+    // Sync loaded state with actual state. Motor must be set on first otherwise the
+    // sync motor logic may cause issues.
+    _device.set_motor_on(_state.motor_on);
 
-            state_changed();
-        }
-    });
+    for (size_t i = 0; i < _state.room_on.size(); i++) {
+        _device.set_room_on(i, _state.room_on[i]);
+    }
 }
 
 void Application::do_process() { _status_led.process(); }
