@@ -690,56 +690,28 @@
       "Root"
     ],
     [
-      "7d8fe4b4-3844-45e3-b522-03eb3428def1",
-      "ETA1"
+      "f32a9db5-a50f-488c-aeb7-a90f6926cec4",
+      "Relay pair - ETA1"
     ],
     [
-      "cccb3884-7f35-48e0-87e8-77ded1bd8628",
-      "ETA2"
+      "551a13f7-ab4a-4363-b700-7982f0c74317",
+      "Current monitor"
     ],
     [
-      "febc02e3-53ac-4cef-b597-2d7f7da8ac30",
-      "ETA3"
+      "d29f4d68-9338-48eb-bb0d-9d66fa5e2594",
+      "Relay pair - ETA2"
     ],
     [
-      "8e03ecdc-c678-4b96-86db-2de1ad8ca2ee",
-      "ETA4"
+      "ee06f143-6fc2-4883-9660-65f33d6f68e8",
+      "Relay pair - ETA3"
     ],
     [
-      "6941f7d2-cc20-4dfc-a9f3-2286c6a5987d",
-      "ETA5"
+      "59e9a4e9-4e48-42de-a25d-8fb0e2131286",
+      "Motor relay"
     ],
     [
-      "a562d290-553b-4e0a-a3d0-a5f7c675049c",
-      "ETA6"
-    ],
-    [
-      "01490a5a-e000-42f5-9f08-4333413eb6af",
-      "ETA7"
-    ],
-    [
-      "c7939916-39e3-4aa7-aedf-3492ad3da96a",
-      "ETA8"
-    ],
-    [
-      "51481f93-bc2d-494f-8142-442b6eb66b55",
-      "ETA_MATRIX"
-    ],
-    [
-      "1a4758fb-5ec1-4744-aac6-7418e0b34e70",
-      "ETA9"
-    ],
-    [
-      "748897e5-ea26-4674-ad5c-64d75ac2eeb3",
-      "ETA10"
-    ],
-    [
-      "eba63e91-de4d-43f6-b194-d00e24966a23",
-      "ETA11"
-    ],
-    [
-      "7af898fb-ffbe-43fe-947e-36caba8541b3",
-      "ETA12"
+      "46b4c450-0b60-48c2-aa16-74b21946fd23",
+      "ETA relays"
     ]
   ],
   "text_variables": {}

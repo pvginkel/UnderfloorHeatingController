@@ -126,7 +126,8 @@ void Application::do_ready() {
 
     ESP_ERROR_CHECK(_device.begin());
 
-    ESP_ERROR_CHECK(_current_meter.begin(CONFIG_DEVICE_CURRENT_METER_REPORT_INTERVAL_MS));
+    ESP_ERROR_CHECK(
+        _current_meter.begin(CONFIG_DEVICE_CURRENT_MONITOR_PIN, CONFIG_DEVICE_CURRENT_METER_REPORT_INTERVAL_MS));
 
     // Sync loaded state with actual state. Motor must be set on first otherwise the
     // sync motor logic may cause issues.
