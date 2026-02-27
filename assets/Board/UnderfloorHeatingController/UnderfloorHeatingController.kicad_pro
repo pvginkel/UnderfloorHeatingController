@@ -498,14 +498,6 @@
       {
         "netclass": "High voltage",
         "pattern": "*POWER_*"
-      },
-      {
-        "netclass": "High voltage",
-        "pattern": "SNUB_MOTOR"
-      },
-      {
-        "netclass": "High voltage",
-        "pattern": "POWER_L"
       }
     ]
   },
