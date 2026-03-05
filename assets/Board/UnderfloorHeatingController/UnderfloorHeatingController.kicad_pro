@@ -475,7 +475,7 @@
         "wire_width": 6
       },
       {
-        "clearance": 2.2,
+        "clearance": 2.3,
         "diff_pair_gap": 0.5,
         "diff_pair_width": 0.4,
         "microvia_diameter": 0.6,
