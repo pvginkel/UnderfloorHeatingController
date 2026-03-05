@@ -3276,7 +3276,7 @@
 			)
 		)
 	)
-	(global_label "POWER_N"
+	(global_label "POWER_L"
 		(shape input)
 		(at 88.9 49.53 180)
 		(fields_autoplaced yes)
@@ -3288,7 +3288,7 @@
 		)
 		(uuid "34948898-f114-4be3-a573-39e7eef715ad")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 77.1458 49.53 0)
+			(at 77.4482 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3738,7 +3738,7 @@
 			)
 		)
 	)
-	(global_label "POWER_L_UNFUSED"
+	(global_label "POWER_N_UNFUSED"
 		(shape input)
 		(at 90.17 33.02 180)
 		(fields_autoplaced yes)
@@ -3750,7 +3750,7 @@
 		)
 		(uuid "c9e56295-5ba0-4a31-9498-240c8669a79c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 69.042 33.02 0)
+			(at 68.7396 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3936,7 +3936,7 @@
 			)
 		)
 	)
-	(global_label "POWER_L"
+	(global_label "POWER_N"
 		(shape input)
 		(at 113.03 33.02 0)
 		(fields_autoplaced yes)
@@ -3948,7 +3948,7 @@
 		)
 		(uuid "eb580c6a-5da6-4abc-98c7-46bc675a348b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 124.4818 33.02 0)
+			(at 124.7842 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
