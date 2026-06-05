@@ -44,3 +44,10 @@ relations:
     source: ss:underfloor-heating-controller,682de51a-d76e-4507-9eed-627725247303
     target: svc:home-assistant-mqtt,23572189-9185-4a6d-a073-2b2820578e11
     type: Association
+
+  # Realizes the IoT-device capability — the selection axis for the IoT view
+  # (in-house ESP32 firmware, managed by IoTSupport, integrated via MQTT discovery).
+  - id: rel:underfloor-heating-controller-realizes-iot-device
+    source: ss:underfloor-heating-controller,682de51a-d76e-4507-9eed-627725247303
+    target: cap:iot-device
+    type: Realization
