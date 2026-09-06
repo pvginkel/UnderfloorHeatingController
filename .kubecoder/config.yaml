@@ -1,0 +1,25 @@
+# The KubeCoder environment for the UnderfloorHeatingController firmware.
+# Schema: https://kubecoder.home/help/reference/config-yaml/
+
+repos:
+  # The shared ESP-IDF component library this firmware builds against. It has to land
+  # beside the repo at /work/esp-libs: the top-level CMakeLists.txt pulls
+  # ../esp-libs/<component>/sdkconfig.defaults, and main/idf_component.yml declares
+  # ../../esp-libs/<component> path dependencies. That is the layout the Jenkinsfile
+  # arranges by cloning esp-libs next to the repo; without it CMake configure fails on
+  # a missing component path. Shared because nothing here ever writes to it.
+  - url: https://github.com/pvginkel/esp-libs.git
+    shared: true
+
+capabilities:
+  github: rw
+
+tools:
+  # ESP-IDF 5.5.3, the toolchain the firmware builds with. The catalog entry carries
+  # the sidecar's memory limit, its ccache home overlay and the /opt/esp activation
+  # wrapper, so a bare `cexec esp-idf idf.py build` is already activated — the
+  # Jenkinsfile's `/opt/esp/entrypoint.sh` prefix must not be repeated here.
+  - use: esp-idf
+
+setup:
+  - kc project setup

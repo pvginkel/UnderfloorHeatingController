@@ -1,0 +1,37 @@
+# Curated entry points for the UnderfloorHeatingController firmware.
+# Schema: https://kubecoder.home/help/reference/project-yaml/
+
+projects:
+  # One component. main/ is the firmware's only IDF component and is built by the
+  # top-level idf.py project, not separately — so there is nothing to split on.
+  root:
+    description: >-
+      ESP32-S3 firmware for the underfloor heating controller: twelve ETA valve
+      actuators plus a pump relay and current monitor, driven over MQTT. Built with
+      ESP-IDF against the shared components in /work/esp-libs.
+
+    # The firmware pipeline. This repo has a second Jenkins job,
+    # AaC/UnderfloorHeatingController, which runs Jenkinsfile.architecture — the
+    # architecture-as-code producer that `lint:` below mirrors.
+    jenkins: Firmware/UnderfloorHeatingController
+
+    # setup: unset — there is nothing to prepare. idf.py resolves the component
+    # manifest and downloads registry components itself on the first build, into the
+    # gitignored managed_components/.
+
+    # As CI runs it (Jenkinsfile: `/opt/esp/entrypoint.sh idf.py build` inside
+    # espressif/idf). The entrypoint is this toolchain's activation wrapper, which
+    # cexec applies to every command, so the verb is the bare idf.py invocation.
+    build: cexec esp-idf idf.py build
+
+    # test: unset — the firmware has no test suite and CI runs none; it is verified by
+    # flashing it to the board.
+
+    # The architecture-as-code gate, exactly as Jenkinsfile.architecture runs it.
+    # Two things to know before relying on it: it is a NETWORK call, POSTing each
+    # artifact to https://architecture.webathome.org/api/validate, so the gate needs
+    # outbound HTTPS and fails closed when that service is down; and it runs on the dev
+    # container's own python3 rather than behind cexec, because the script is
+    # stdlib-only by design (CI runs it on python:slim) and no python toolchain is
+    # selected for this environment.
+    lint: ./scripts/arch-validate.py docs/architecture/*.yaml
