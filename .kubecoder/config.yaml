@@ -20,6 +20,3 @@ tools:
   # wrapper, so a bare `cexec esp-idf idf.py build` is already activated — the
   # Jenkinsfile's `/opt/esp/entrypoint.sh` prefix must not be repeated here.
   - use: esp-idf
-
-setup:
-  - kc project setup
