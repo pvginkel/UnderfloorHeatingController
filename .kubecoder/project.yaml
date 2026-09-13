@@ -34,4 +34,9 @@ projects:
     # container's own python3 rather than behind cexec, because the script is
     # stdlib-only by design (CI runs it on python:slim) and no python toolchain is
     # selected for this environment.
-    lint: ./scripts/arch-validate.py docs/architecture/*.yaml
+    #
+    # The second step fails on any C/C++ source under main/ that does not match
+    # main/.clang-format, using the native toolchain's clang-format.
+    lint:
+      - ./scripts/arch-validate.py docs/architecture/*.yaml
+      - cexec native sh -c 'find main \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) -print0 | xargs -0 clang-format --dry-run --Werror'
