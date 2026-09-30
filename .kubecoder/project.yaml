@@ -27,16 +27,13 @@ projects:
     # test: unset — the firmware has no test suite and CI runs none; it is verified by
     # flashing it to the board.
 
-    # The architecture-as-code gate, exactly as Jenkinsfile.architecture runs it.
-    # Two things to know before relying on it: it is a NETWORK call, POSTing each
-    # artifact to https://architecture.webathome.org/api/validate, so the gate needs
-    # outbound HTTPS and fails closed when that service is down; and it runs on the dev
-    # container's own python3 rather than behind cexec, because the script is
-    # stdlib-only by design (CI runs it on python:slim) and no python toolchain is
-    # selected for this environment.
+    # The architecture-as-code gate, exactly as Jenkinsfile.architecture runs it,
+    # from the aac-tools toolchain. It is a NETWORK call, POSTing each artifact to
+    # https://architecture.webathome.org/api/validate, so the gate needs outbound
+    # HTTPS and fails closed when that service is down.
     #
     # The second step fails on any C/C++ source under main/ that does not match
     # main/.clang-format, using the native toolchain's clang-format.
     lint:
-      - ./scripts/arch-validate.py docs/architecture/*.yaml
+      - cexec aac-tools arch-validate docs/architecture/*.yaml
       - cexec native sh -c 'find main \( -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) -print0 | xargs -0 clang-format --dry-run --Werror'

@@ -22,3 +22,5 @@ tools:
   - use: esp-idf
   # Provides clang-format for the lint gate.
   - use: native
+  # arch-validate, the architecture artifact's lint gate.
+  - use: aac-tools
