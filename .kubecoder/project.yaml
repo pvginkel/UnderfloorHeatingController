@@ -19,7 +19,7 @@ projects:
     # manifest and downloads registry components itself on the first build, into the
     # gitignored managed_components/.
 
-    # As CI runs it (Jenkinsfile: `/opt/esp/entrypoint.sh idf.py build` inside
+    # As CI runs it (espFirmware.build: `/opt/esp/entrypoint.sh idf.py build` inside
     # espressif/idf). The entrypoint is this toolchain's activation wrapper, which
     # cexec applies to every command, so the verb is the bare idf.py invocation.
     build: cexec esp-idf idf.py build

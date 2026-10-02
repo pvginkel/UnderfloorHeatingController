@@ -18,7 +18,7 @@ tools:
   # ESP-IDF 5.5.3, the toolchain the firmware builds with. The catalog entry carries
   # the sidecar's memory limit, its ccache home overlay and the /opt/esp activation
   # wrapper, so a bare `cexec esp-idf idf.py build` is already activated — the
-  # Jenkinsfile's `/opt/esp/entrypoint.sh` prefix must not be repeated here.
+  # CI's `/opt/esp/entrypoint.sh` prefix must not be repeated here.
   - use: esp-idf
   # Provides clang-format for the lint gate.
   - use: native
